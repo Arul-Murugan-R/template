@@ -4,9 +4,182 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beginning</title>
+    <title>Carosuel</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .caro-cont{
+            
+            width: 500px ;
+            overflow: hidden;
+            position: relative;
+        }
+        .slides{
+            width: 100% auto;
+            display: flex;
+            
+        }
+        .next,.prev{
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            border-radius:50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: #fff;
+        }
+        .next{
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .prev{
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .caro-option{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .option{
+            display:inline;
+            margin: 0 5px;
+        }
+        /* customizing radio button */
+        .option input[type="radio"]{
+            display: none;
+        }
+        .option label{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid blueviolet;
+            display: block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option input[type="radio"]:checked + label{
+            
+            padding: 2px;
+            background: orange;
+        }
+
+    </style>
 </head>
 <body>
-    
+    <div class="caro-cont">
+        <div class="slides">
+            <div class="slide"><img src="https://picsum.photos/500/300" alt="" ,alt="image"></div>
+            <div class="slide"><img src="https://picsum.photos/500/300" alt="" ,alt="image"></div>
+            <div class="slide"><img src="https://picsum.photos/500/300" alt="" ,alt="image"></div>
+            <div class="slide"><img src="https://picsum.photos/500/300" alt="" ,alt="image"></div>
+            <div class="slide"><img src="https://picsum.photos/500/300" alt="" ,alt="image"></div>
+        </div>
+        <div class="prev">
+            <img src="https://img.icons8.com/ios/30/000000/long-arrow-left.png"/>
+        </div>
+        <div class="next">
+            <img src="https://img.icons8.com/ios/30/000000/long-arrow-right.png"/>
+        </div>
+        <div class="caro-option">
+            <div class="option">
+                <input type="radio" name="option" id="option1" checked>
+                <label for="option1"></label>
+            </div>
+            <div class="option">
+                <input type="radio" name="option" id="option2">
+                <label for="option2"></label>
+            </div>
+            <div class="option">
+                <input type="radio" name="option" id="option3">
+                <label for="option3"></label>
+            </div>
+            <div class="option">
+                <input type="radio" name="option" id="option4">
+                <label for="option4"></label>
+            </div>
+            <div class="option">
+                <input type="radio" name="option" id="option5">
+                <label for="option5"></label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelector('.slides');
+        const slide = document.querySelector('.slide');
+        const prev = document.querySelector('.prev');
+        const next = document.querySelector('.next');
+        const option = document.querySelectorAll('.option');
+        console.log(option)
+        let counter = 0;
+        const size = slides.clientWidth;
+        next.addEventListener('click',()=>{
+            if(counter >= slides.children.length - 1) {
+                counter = -1 ;
+            };
+            prev.style.cursor = "pointer";
+            slides.style.transition = "transform 0.4s ease-in-out";
+            counter++;
+            option.forEach((item,index)=>{
+                if(index == counter){
+                    item.children[0].checked = true;
+                }
+            })
+            slides.style.transform = 'translateX(' + (-size * counter) + 'px)';
+        });
+        prev.addEventListener('click',()=>{
+            console.log(slides.children[counter],counter)
+            if(counter <= 0) 
+            {
+                counter =  slides.children.length;
+            }
+            next.style.cursor = "pointer";
+            slides.style.transition = "transform 0.4s ease-in-out";
+            counter--;
+            slides.style.transform = 'translateX(' + (-size * counter) + 'px)';
+            option.forEach((item,index)=>{
+                if(index == counter){
+                    item.children[0].checked = true;
+                }
+            })
+            // if(counter == 0) {
+            //     prev.style.cursor = "not-allowed";
+            //     return;
+            // }
+        });
+        setInterval(()=>{
+            if(counter >= slides.children.length - 1) {
+                counter = -1;
+            }
+            prev.style.cursor = "pointer";
+            slides.style.transition = "transform 0.4s ease-in-out";
+            counter++;
+            option.forEach((item,index)=>{
+                if(index == counter){
+                    item.children[0].checked = true;
+                }
+            })
+            slides.style.transform = 'translateX(' + (-size * counter) + 'px)';
+        },3000)
+        option.forEach((item,index)=>{
+            item.addEventListener('click',()=>{
+                console.log(index)
+                slides.style.transition = "transform 0.4s ease-in-out";
+                counter = index;
+                slides.style.transform = 'translateX(' + (-size * counter) + 'px)';
+            })
+        })
+    </script>
 </body>
 </html>
