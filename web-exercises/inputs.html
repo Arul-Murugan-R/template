@@ -6,6 +6,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Fields</title>
+    <style>
+        .form-field {
+            margin: 10px;
+            border:1px solid #ccc;
+            width:300px;
+            transition: all 0.3s ease-in-out;
+            padding-bottom:10px ;
+        }
+        .form-field:focus-within, .form-field:has(input:not(:placeholder-shown)) {
+            border:1px solid blue;
+        }
+        .form-field:focus-within span, .form-field input:not(:placeholder-shown) + span{
+            color:blue;
+            top:-10px;
+            left:5px;
+        }
+
+        .form-field input {
+            padding: 10px;
+            border: 0px;
+            border-radius: 5px;
+            outline:none;
+            width: 300px;
+            background: none;
+            position: absolute;
+        }
+
+        .form-field span {
+            position: relative;
+            top: 3px;
+            left: 5px;
+            color: #ccc;
+            margin-top: 5px;
+            background: white;
+            transition: all 0.3s ease-in-out;
+            padding: 0px 5px;
+        }
+    </style>
 </head>
 
 <body>
