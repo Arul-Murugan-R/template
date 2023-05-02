@@ -324,7 +324,13 @@
     </div>
 
     <script>
-        
+        const options = document.querySelectorAll(".option");
+        // console.log(options)
+        options.forEach((option, index) => {
+            option.addEventListener("click", () => {
+                document.querySelector(".pages").style.transform = `translateX(-${index * 100}%)`;
+            })
+        })
     </script>
 </body>
 
